@@ -12,8 +12,14 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  // Nitro with vercel preset — outputs to .vercel/output which Vercel auto-detects
+  // Override lovable config's hardcoded output paths so Nitro vercel preset
+  // outputs to .vercel/output/ which Vercel auto-detects as serverless functions
   nitro: {
     preset: "vercel",
+    output: {
+      dir: ".vercel/output",
+      serverDir: ".vercel/output/functions/__nitro.func",
+      publicDir: ".vercel/output/static",
+    },
   },
 });
