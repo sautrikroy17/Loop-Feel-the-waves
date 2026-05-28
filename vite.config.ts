@@ -22,4 +22,10 @@ export default defineConfig({
       publicDir: ".vercel/output/static",
     },
   },
+  vite: {
+    // Disable source maps in production — keeps compiled code minified and unreadable in DevTools
+    build: {
+      sourcemap: false,
+    },
+  },
 });
