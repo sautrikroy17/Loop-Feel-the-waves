@@ -105,7 +105,7 @@ export function Hero({ onSearchOpen }: { onSearchOpen: () => void }) {
             transition={{ duration: 1.1, delay: 0.04, ease }}
             className="block text-[clamp(4.5rem,12vw,10rem)] text-white"
           >
-            LOOP -
+            Feel the
           </motion.span>
 
           <motion.span
@@ -120,7 +120,7 @@ export function Hero({ onSearchOpen }: { onSearchOpen: () => void }) {
               color: 'transparent',
             }}
           >
-          Beyond Limits
+          Drop
           </motion.span>
         </h1>
 

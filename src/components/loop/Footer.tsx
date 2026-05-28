@@ -44,7 +44,7 @@ export function Footer() {
 
           {/* Social links */}
           <div className="flex items-center gap-3">
-            {[{name: 'X', url: '#'}, {name: 'IG', url: 'https://www.instagram.com/__krishh17__/'}, {name: 'TT', url: '#'}, {name: 'SC', url: '#'}].map((s) => (
+            {[{name: 'IG', url: 'https://www.instagram.com/__krishh17__/'}].map((s) => (
               <a
                 key={s.name}
                 href={s.url}
@@ -58,10 +58,14 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[11px] text-white/22">
-            <span>Created by Sautrik Roy ©</span>
-            <a href="#" className="transition-colors hover:text-white/50">Privacy</a>
-            <a href="#" className="transition-colors hover:text-white/50">Terms</a>
+          <div className="flex flex-col items-center justify-center gap-4 text-white/22 mt-4">
+            <span className="text-sm font-semibold tracking-wide text-white/60 hover:text-white transition-colors duration-300">
+              Created by Sautrik Roy ©
+            </span>
+            <div className="flex items-center gap-5 text-[11px]">
+              <a href="#" className="transition-colors hover:text-white/50">Privacy</a>
+              <a href="#" className="transition-colors hover:text-white/50">Terms</a>
+            </div>
           </div>
         </div>
       </div>
