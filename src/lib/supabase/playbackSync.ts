@@ -52,7 +52,7 @@ export async function initPlaybackSync(uid: string) {
         usePlayback.setState({
           currentTrack: cloudState.currentTrack,
           queue: cloudState.queue || [],
-          progress: cloudState.progress || 0,
+          progress: 0, // Always start restored tracks from the beginning (0:00)
           isShuffle: cloudState.isShuffle || false,
           repeatMode: cloudState.repeatMode || 'none',
           isPlaying: false, // Always start paused — user explicitly presses play

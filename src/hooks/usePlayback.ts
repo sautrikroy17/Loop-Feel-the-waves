@@ -315,11 +315,10 @@ export const usePlayback = create<PlaybackState>()(
         queue: state.queue,
         history: state.history,
         volume: state.volume,
-        progress: state.progress,
         isShuffle: state.isShuffle,
         repeatMode: state.repeatMode,
         isAutoplay: state.isAutoplay,
-        // DO NOT persist: isPlaying, isLoadingTrack, youtubePlayerReady, seekTarget, duration
+        // DO NOT persist: isPlaying, isLoadingTrack, youtubePlayerReady, seekTarget, duration, progress
       }),
     }
   )

@@ -182,7 +182,7 @@ export function AudioEngine() {
       if (cancelled) return;
 
       if (ytId) {
-        const startSeconds = usePlayback.getState().progress || 0;
+        const startSeconds = 0; // Always start from beginning per user request
         if (usePlayback.getState().isPlaying) {
           playerRef.current?.loadVideoById({ videoId: ytId, startSeconds });
         } else {
@@ -228,7 +228,7 @@ export function AudioEngine() {
         // Force fully load and play the track if it was stuck in a cued background state
         const videoId = playerRef.current.getVideoData?.()?.video_id;
         if (videoId) {
-          const startSeconds = usePlayback.getState().progress || 0;
+          const startSeconds = 0;
           playerRef.current.loadVideoById?.({ videoId, startSeconds });
         } else {
           playerRef.current.playVideo?.();
