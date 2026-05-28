@@ -287,8 +287,16 @@ export const getDiscoverySectionsFn = createServerFn({ method: 'GET' })
   });
 
 export const getAlbumDetailsFn = createServerFn({ method: 'GET' })
-  .inputValidator((browseId: string) => browseId)
-  .handler(async ({ data: browseId }): Promise<DiscoveryTrack[]> => {
+  .inputValidator((data: any) => data)
+  .handler(async ({ data }): Promise<DiscoveryTrack[]> => {
+    const browseId = typeof data === 'string' ? data : data.id;
+    const fallbackArtist = typeof data === 'string' ? '' : data.artist;
+    const fallbackArt = typeof data === 'string' ? '' : data.albumArt;
+
     const tracks = await getAlbumDetails(browseId);
-    return tracks.map(toTrack);
+    return tracks.map(toTrack).map(t => ({
+      ...t,
+      artist: t.artist || fallbackArtist || 'Unknown Artist',
+      albumArt: t.albumArt || fallbackArt || ''
+    }));
   });

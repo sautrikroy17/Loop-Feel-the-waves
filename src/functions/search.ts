@@ -207,12 +207,20 @@ export const omniSearchFn = createServerFn({ method: 'GET' })
   });
 
 export const getAlbumDetailsFn = createServerFn({ method: 'GET' })
-  .inputValidator((data: string) => data)
-  .handler(async ({ data: albumId }) => {
+  .inputValidator((data: any) => data)
+  .handler(async ({ data }) => {
     try {
+      const albumId = typeof data === 'string' ? data : data.id;
+      const fallbackArtist = typeof data === 'string' ? '' : data.artist;
+      const fallbackArt = typeof data === 'string' ? '' : data.albumArt;
+      
       const { getAlbumDetails } = await import('../server/services/youtubeMusic');
       const tracks = await getAlbumDetails(albumId);
-      return tracks.map(ytmToLoop);
+      return tracks.map(ytmToLoop).map(t => ({
+        ...t,
+        artist: t.artist || fallbackArtist || 'Unknown Artist',
+        albumArt: t.albumArt || fallbackArt || ''
+      }));
     } catch (err) {
       console.error('[Search] getAlbumDetails failed:', err);
       return [];
@@ -220,12 +228,20 @@ export const getAlbumDetailsFn = createServerFn({ method: 'GET' })
   });
 
 export const getPlaylistDetailsFn = createServerFn({ method: 'GET' })
-  .inputValidator((data: string) => data)
-  .handler(async ({ data: playlistId }) => {
+  .inputValidator((data: any) => data)
+  .handler(async ({ data }) => {
     try {
+      const playlistId = typeof data === 'string' ? data : data.id;
+      const fallbackArtist = typeof data === 'string' ? '' : data.artist;
+      const fallbackArt = typeof data === 'string' ? '' : data.albumArt;
+
       const { getPlaylistDetails } = await import('../server/services/youtubeMusic');
       const tracks = await getPlaylistDetails(playlistId);
-      return tracks.map(ytmToLoop);
+      return tracks.map(ytmToLoop).map(t => ({
+        ...t,
+        artist: t.artist || fallbackArtist || 'Unknown Artist',
+        albumArt: t.albumArt || fallbackArt || ''
+      }));
     } catch (err) {
       console.error('[Search] getPlaylistDetails failed:', err);
       return [];

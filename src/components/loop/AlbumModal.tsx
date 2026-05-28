@@ -23,7 +23,7 @@ export function AlbumModal({ album, onClose }: AlbumModalProps) {
     setLoading(true);
     setTracks([]);
     
-    getAlbumDetailsFn({ data: album.id })
+    getAlbumDetailsFn({ data: album })
       .then((res) => {
         if (!cancelled) setTracks(res as Track[]);
       })

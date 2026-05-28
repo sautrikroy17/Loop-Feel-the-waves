@@ -426,7 +426,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         key={album.id}
                         album={album}
                         onPlay={async () => {
-                          const tracks = await getAlbumDetailsFn({ data: album.id });
+                          const tracks = await getAlbumDetailsFn({ data: album });
                           handlePlayCollection(tracks as Track[]);
                         }}
                       />
@@ -449,7 +449,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         key={playlist.id}
                         playlist={playlist}
                         onPlay={async () => {
-                          const tracks = await getPlaylistDetailsFn({ data: playlist.id });
+                          const tracks = await getPlaylistDetailsFn({ data: playlist });
                           handlePlayCollection(tracks as Track[]);
                         }}
                       />
