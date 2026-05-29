@@ -251,7 +251,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
       } finally {
         setSearching(false);
       }
-    }, 200);
+    }, 75);
     return () => clearTimeout(t);
   }, [query]);
 

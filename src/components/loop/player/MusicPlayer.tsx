@@ -69,7 +69,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
       } finally {
         setIsSearching(false);
       }
-    }, 400);
+    }, 75);
     return () => clearTimeout(t);
   }, [query]);
 
