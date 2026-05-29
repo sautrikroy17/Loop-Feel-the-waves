@@ -48,30 +48,47 @@ export interface ListeningStats {
 // ── Genre inference from title/artist strings ─────────────────────
 
 const GENRE_PATTERNS: [RegExp, string][] = [
-  // Deep Vibes & Micro-Genres
-  [/weeknd|chase atlantic|partynextdoor|6lack/i, "Dark R&B"],
-  [/travis scott|playboi carti|yeat|ken carson/i, "Atmospheric Trap"],
-  [/lana del rey|billie eilish|mitski|phoebe bridgers/i, "Sad Girl Pop"],
-  [/deftones|loathe|my bloody valentine/i, "Shoegaze"],
-  [/arijit singh|shreya ghoshal|jubin|vishal|shekhar|sanam|aditi singh|pritam|\batif\b|neha kakkar|badshah|honey singh|darshan|armaan|sonu nigam|udit|kumar sanu|\bkk\b|rahman|amit trivedi|sunidhi|tulsi|\bzayn\b|guru randhawa/i, "Bollywood Romance"],
-  [/karan aujla|sidhu moose|ap dhillon|diljit|b praak|harrdy|ammy|shubh|dilpreet|jassie|jazzy|mankirt|ninja|parmish|prophec|ikky/i, "Punjabi Tadka"],
-  [/seedhe maut|krsna|divine|emiway|mc stan|ikka|raftaar/i, "Desi Trap"],
-  [/lo-?fi|study|sleep/i, "Lo-Fi Study"],
-  [/phonk|drift/i, "Phonk"],
-  [/synthwave|retrowave/i, "Synthwave"],
-  [/house|techno|edm/i, "Festival EDM"],
-  [/afrobeats|burna boy|rema/i, "Afro Beats"],
-  [/kpop|bts|blackpink/i, "K-Pop Energy"],
-  [/slowed|reverb/i, "Slow Reverb"],
-  [/drill|central cee/i, "Drill"],
-  [/classical|symphony|zimmer/i, "Cinematic"],
+  // 1. Punjabi Tadka
+  [/\b(diljit dosanjh|karan aujla|ap dhillon|sidhu moose|shubh|b praak|harrdy|ammy|guru randhawa|jassie|jazzy|mankirt|ninja|parmish|prophec|ikky|gurinder|sharry|gurnam|babbu maan|bohemia|imran khan|mickey singh|pav dharia|ranjit bawa|garry sandhu|prem dhillon)\b/i, "Punjabi Tadka"],
 
-  // Fallbacks
-  [/r&b|rnb/i, "Luxury R&B"],
-  [/trap|hip.?hop|rap/i, "Underground Hip-Hop"],
-  [/indie|alt/i, "Indie Nights"],
-  [/pop|viral/i, "Viral Insta"],
-  [/bollywood|hindi/i, "Desi Heat"],
+  // 2. Bollywood Romance
+  [/\b(arijit singh|shreya ghoshal|jubin|vishal mishra|shekhar|sanam|aditi singh|pritam|atif|neha kakkar|badshah|honey singh|darshan|armaan|sonu nigam|udit|kumar sanu|kk|rahman|amit trivedi|sunidhi|tulsi|zayn|mohit chauhan|ankit tiwari|amaal|shaan|shilpa rao|palak muchhal|monali|benny dayal)\b/i, "Bollywood Romance"],
+
+  // 3. Desi Trap
+  [/\b(divine|naezy|seedhe maut|krsna|emiway|mc stan|ikka|raftaar|king|dino james|fotty seven|bali|karma|talha|young stunners|munawar)\b/i, "Desi Trap"],
+
+  // 4. Dark R&B
+  [/\b(weeknd|chase atlantic|partynextdoor|6lack|brent faiyaz|bryson tiller|frank ocean|sza|kehlani|summer walker|jhene aiko|giveon|daniel caesar)\b/i, "Dark R&B"],
+
+  // 5. Atmospheric Trap
+  [/\b(travis scott|playboi carti|yeat|ken carson|destroy lonely|lil uzi vert|future|young thug|gunna|don toliver|metro boomin|21 savage|drake|kendrick|j\.? cole)\b/i, "Atmospheric Trap"],
+
+  // 6. Sad Girl Pop
+  [/\b(lana del rey|billie eilish|mitski|phoebe bridgers|clairo|boygenius|lorde|taylor swift|gracie abrams|lizzy mcalpine|conan gray)\b/i, "Sad Girl Pop"],
+
+  // 7. Global Pop
+  [/\b(ariana grande|justin bieber|dua lipa|sabrina carpenter|tate mcrae|shawn mendes|charlie puth|ed sheeran|harry styles|miley cyrus|katy perry|lady gaga|viral)\b/i, "Global Pop"],
+
+  // 8. K-Pop Energy
+  [/\b(bts|blackpink|twice|stray kids|seventeen|newjeans|le sserafim|txt|enhypen|red velvet|exo|iu|jung kook|jimin)\b/i, "K-Pop Energy"],
+
+  // 9. Afro Beats
+  [/\b(burna boy|rema|wizkid|tyla|asake|davido|ayra starr|ckay|fireboy)\b/i, "Afro Beats"],
+
+  // 10. Festival EDM
+  [/\b(martin garrix|tiësto|tiesto|calvin harris|david guetta|avicii|skrillex|fred again|swedish house mafia|zedd|dj snake|alan walker|marshmello)\b/i, "Festival EDM"],
+
+  // 11. Micro-Genres & Fallbacks
+  [/\b(deftones|loathe|my bloody valentine)\b/i, "Shoegaze"],
+  [/\b(lo-?fi|study|sleep)\b/i, "Lo-Fi Study"],
+  [/\b(phonk|drift)\b/i, "Phonk"],
+  [/\b(synthwave|retrowave)\b/i, "Synthwave"],
+  [/\b(drill|central cee)\b/i, "Drill"],
+  [/\b(classical|symphony|zimmer)\b/i, "Cinematic"],
+  [/\b(r&b|rnb)\b/i, "Luxury R&B"],
+  [/\b(indie|alt)\b/i, "Indie Nights"],
+  [/\b(bollywood|hindi)\b/i, "Desi Heat"],
+  [/\b(pop|viral)\b/i, "Viral Insta"],
 ];
 
 export function inferGenres(title: string, artist: string): string[] {
@@ -375,6 +392,10 @@ export const useListeningIntelligence = create<IntelligenceState>()(
         if (genreBase === "Punjabi Tadka") return "Punjabi Tadka";
         if (genreBase === "Desi Trap") return "Desi Underground";
         if (genreBase === "Desi Heat") return "Bollywood Explorer";
+        if (genreBase === "Atmospheric Trap") return "Trap & Rap Head";
+        if (genreBase === "Global Pop") return "Pop Icon";
+        if (genreBase === "K-Pop Energy") return "K-Pop Stan";
+        if (genreBase === "Afro Beats") return "Afro Beats Vibe";
         if (isHighSkip) return `${genreBase} Explorer`;
         if (isHighRepeat) return `${genreBase} Addict`;
 
