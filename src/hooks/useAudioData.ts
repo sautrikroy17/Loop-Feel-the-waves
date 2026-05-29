@@ -90,6 +90,11 @@ function bpmFor(title: string, artist: string): number {
 // ── RAF simulation loop ────────────────────────────────────────────
 
 function tick() {
+  if (document.hidden) {
+    _rafId = requestAnimationFrame(tick);
+    return;
+  }
+
   const ps = usePlayback.getState();
   const active = ps.isPlaying && !!ps.currentTrack;
   const progress = ps.progress ?? 0;
